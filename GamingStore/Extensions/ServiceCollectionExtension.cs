@@ -1,0 +1,32 @@
+﻿using GamingStore.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class ServiceCollectionExtension
+    {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection service)
+        {
+
+
+            return service;
+        }
+        public static IServiceCollection AddApplicationDbContext(this IServiceCollection service, IConfiguration config)
+        {
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            service.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+            service.AddDatabaseDeveloperPageExceptionFilter();
+            return service;
+        }
+        public static IServiceCollection AddApplicationIdentity(this IServiceCollection service, IConfiguration config)
+        {
+
+            service
+                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            return service;
+        }
+    }
+}
