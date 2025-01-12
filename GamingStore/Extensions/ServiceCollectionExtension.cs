@@ -1,4 +1,4 @@
-﻿using GamingStore.Data;
+﻿using GamingStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
